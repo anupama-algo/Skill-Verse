@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SkillVerse - Interactive Skill & Career Discovery Platform</title>
+  <link rel="icon" href="robot.png">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="script.js" defer></script>
+
+</head>
+
+<body id="mainBody">
+  
+  <div class="bg-shape bg1"></div>
+  <div class="bg-shape bg2"></div>
+  <div class="bg-shape bg3"></div>
+
+  <div id="splash">
+    SkillVerse
+    <small>Discover • Learn • Grow</small>
+  </div>
+
+  <header>
+
+    <h1>SkillVerse</h1>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#why">Why</a>
+      <a href="#skills">Skills</a>
+      <button class="modeBtn" onclick="toggleMode()">Theme</button>
+      <button class="modeBtn" onclick="openProfile()">Profile</button>
+    </nav>
+
+  </header>
+
+  <section class="hero" id="home">
+    <div>
+      <h2 id="typingText"></h2>
+      <p>An interactive platform to help students understand which skills match their interests.</p>
+
+      <p id="quoteBox">Loading inspiration...</p>
+
+      <button onclick="startExplore()">Start Exploring</button>
+    </div>
+  </section>
+
+  <section class="why" id="why">
+    <h2>Why Choose SkillVerse</h2>
+    <div class="whyGrid">
+
+      <div class="whyCard">
+        <h3>Personalized Learning</h3>
+        <p>Get recommendations based on your interests and goals.</p>
+      </div>
+
+      <div class="whyCard">
+        <h3>Smart SkillBot</h3>
+        <p>Interactive assistant to guide your skill journey.</p>
+      </div>
+
+      <div class="whyCard">
+        <h3>Curated Courses</h3>
+        <p>Find the best courses from trusted platforms.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="skills" id="skills">
+    <h2>Explore</h2>
+
+    <input
+      type="text"
+      id="skillSearch"
+      placeholder="Search....."
+    >
+
+    <div class="skillGrid" id="skillContainer"></div>
+  </section>
+
+  <div class="popup" id="popup">
+    <div class="panel">
+      <span class="closeBtn" onclick="closePopup()">✖</span>
+
+      <div id="alertPopup">Please select at least one domain !</div>
+
+      <div class="progress">
+        <span>General</span>
+        <span>Level</span>
+        <span>Domain</span>
+        <span>Preferences</span>
+      </div>
+
+      <h2 id="title"></h2>
+
+      <div class="options" id="options"></div>
+
+      <h3 id="subTitle"></h3>
+
+      <div class="options" id="subOptions"></div>
+
+      <button
+        class="panel-btn"
+        id="nextBtn"
+        onclick="nextStep()"
+      >
+        Next
+      </button>
+
+      <button
+        class="panel-btn"
+        id="backBtn"
+        onclick="prevStep()"
+      >
+        Back
+      </button>
+    </div>
+  </div>
+
+  <div class="popup" id="loginPopup">
+    <div class="panel">
+      <h2>Create Your SkillVerse Account</h2>
+
+      <div id="loginAlert">Please fill all fields correctly !</div>
+
+      <input
+        type="text"
+        id="username"
+        placeholder="Username"
+        autocomplete="username"
+      >
+      <br><br>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Email"
+        autocomplete="email"
+      >
+      <br><br>
+
+      <input
+        type="text"
+        id="contact"
+        placeholder="Contact Number"
+        autocomplete="tel"
+      >
+      <br><br>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        autocomplete="new-password"
+      >
+      <br><br>
+
+      <button
+        class="panel-btn"
+        onclick="submitForm()"
+      >
+        Sign Up
+      </button>
+
+      <button
+        class="panel-btn"
+        onclick="closeLogin()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+
+  <div class="popup" id="profilePopup">
+    <div class="panel">
+      <span class="closeBtn" onclick="closeProfile()">✖</span>
+      <h2>Your Profile</h2>
+
+      <div style="margin-top:20px; text-align:left; line-height:1.8;">
+        <p>
+          <b>Username:</b>
+          <span id="pUsername">Guest</span>
+        </p>
+
+        <p>
+          <b>Email:</b>
+          <span id="pEmail">Not added</span>
+        </p>
+
+        <p>
+          <b>Contact:</b>
+          <span id="pContact">Not added</span>
+        </p>
+
+        <button
+          class="panel-btn"
+          onclick="openChangePassword()"
+        >
+          Change Password
+        </button>
+
+        <button
+          class="panel-btn"
+          onclick="logoutUser()"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup" id="passwordPopup">
+    <div class="panel">
+      <h2>Change Password</h2>
+
+      <input
+        type="password"
+        id="oldPass"
+        placeholder="Current Password"
+        autocomplete="current-password"
+      >
+      <br><br>
+
+      <input
+        type="password"
+        id="newPass"
+        placeholder="New Password"
+        autocomplete="new-password"
+      >
+      <br><br>
+
+      <div
+        id="passAlert"
+        style="display:none; color:red; margin-bottom:10px;"
+      ></div>
+
+      <button
+        class="panel-btn"
+        onclick="changePassword()"
+      >
+        Update
+      </button>
+
+      <button
+        class="panel-btn"
+        onclick="closePassword()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <div class="popup" id="coursesPopup">
+    <div class="panel">
+      <h3>Recommended Courses</h3>
+
+      <div id="courseList"></div>
+      <button
+        class="panel-btn"
+        onclick="closeCourses()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+
+  <div class="popup" id="quizPopup">
+    <div class="panel">
+      <h2>Find Your Ideal Skill Path</h2>
+      <p id="question"></p>
+
+      <div id="answers"></div>
+      <p id="result"></p>
+      <button
+        class="panel-btn"
+        onclick="closeQuiz()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+
+  <img
+    src="robot.png"
+    class="robot"
+    onclick="openPanel()"
+    alt="SkillBot Assistant"
+  >
+
+  <div id="robotMsg">Hi I'm SkillBot! Ready to explore skills?</div>
+
+  <footer id="footer">© 2026 SkillVerse | Skill & Career Discovery Platform</footer>
+
+</body>
+</html>
